@@ -1,39 +1,31 @@
 # breathOS
 
-Beatiful, secure, and transparent OS with with a focus on UX design and build reproducibility.
+Experience a beautiful, secure, and transparent operating system that embodies a unique balance between UX design and build reproducibility.
 
-The current Linux desktop caters to the "1%" of developers. Most users will never crack-open the command-line. Installation of applications and updates of the OS should be seamless and foregettable, like with the original iPhone vision.
+Too often, existing Linux desktop environments cater only to the upper echelon of developers, leaving the majority who seldom utilize the command-line in the lurch. Meanwhile, elegantly designed OS like MacOS, despite their aesthetic appeal, limit developers by being closed-source.
 
-And current beautifully designed OS, like MacOS, disregards the developer. Making it closed source and gate-keeping the developer.
+What's more, many mainstream operating systems grapple with the problem of reproducibility. While some OS communities such as NixOS have made strides towards creating reproducible systems, these solutions tend to be unfriendly for users and application developers alike.
 
-All current mainline OS suffer from the lack of reproducibility. Yet the OS communities that heroicly got us reproducible systems, such as NixOS, are totally user unfriendly and app developer unfriendly.
+Enter breathOS—a harmonious blend of a Nix-like system and user-friendly, containerized applications. In this milieu, the Nix community excels at doing what it does best: crafting reproducible builds and configurations. Concurrently, developers focus on their strength: creating applications that meet user needs and are loved by all.
 
-We prepose a balance. NixOS (Nix-like) system with userland container applications. Nix-like system community can do what it does best, creating reproducible builds and configurations. And developers can do what they do best, create applications that users need and love.
-
-The following are an intrepretation of these requirements.
+Here's a closer look at the key features and principles underpinning breathOS.
 
 ## System Updates
 
-- All updates happen via nix-pkgs, or similar package manager.
-- Ability for the system to rollback (only the system can do so).
-
-There is no "package manager" in the conventional sense of the word.
+- Updates are delivered via nix-pkgs or a similar package manager, making the conventional concept of a "package manager" redundant.
+- The system reserves the exclusive ability to rollback.
 
 ## System Manager
 
-All configurations securely made here. Under the hood, its configured using Nix flakes.
+All configurations are securely handled via the System Manager. While this may be underpinned by Nix flakes, users won't need to delve under the hood.
 
 ## App Collection
 
-A curated collection of containerized applications by the community. The ratings and rankings are transparent that prevent fake users participation and spam feedback.
+The App Collection is a curated assortment of containerized applications contributed by the community. The transparent rating and ranking system prevents fraudulent user participation and spam feedback. Installation is as simple as a point-and-click action, with the ability for users to rollback applications to any state, although certain future limitations may apply for security reasons.
 
-Installations are point and click. Users can rollback the applications to any state (future may be some limitations for security reasons).
+### Contributing to the App Collection
 
-- Dockerfile
-- Docker-compose
-- git
-
-Developers create an `app.collection` file. It is simply a json file:
+Developers contribute by creating an `app.collection` file, a straightforward JSON file:
 
 ```
 {
@@ -41,15 +33,14 @@ Developers create an `app.collection` file. It is simply a json file:
    gitURL: <>,
 }
 ```
+This file, when altered, creates a distinct app. The hash, signed with the ContributorID, becomes the AppID.
 
-Any change in this file makes it another app. The has, signed with ContributorID, is the AppID.
+Upon receiving the JSON file, the App Collection clones the repository and builds the Docker image. It then checks for any newer commits on the master branch, notifying the user if an update is available. A single click launches the reinstallation (the update).
 
-`App Collection` will build the Docker image after cloning the repo. App Collection will check for latest master commits. If there are some it doesn't have, it tells the user an update is available. One-click fires of the reinstallation (the update).
+### App Collection Repository Format
 
-All App Collection git repos must conform to the following format to build successfully:
+To successfully build an app, all App Collection git repositories must adhere to the following format:
 
-- A directory called `.breathOS/`, with an `app.collection` file
-
-- A `app-image/`subdirectory with Dockerfiles. If there is only one Dockerfile, it must be named `app.file`.
-
-- An optional a `app.manager` (a docker-compose) file in the breathOS root folder.
+- A directory named `.breathOS/`, containing an `app.collection` file.
+- A subdirectory named `app-image/`, housing Dockerfiles. If there's only one Dockerfile, it must be named `app.file`.
+- Optionally, an `app.manager` file (a docker-compose file) located in the breathOS root folder.
