@@ -25,22 +25,24 @@ The App Collection is a curated assortment of containerized applications contrib
 
 ### Contributing to the App Collection
 
-Developers contribute by creating an `app.collection` file, a straightforward JSON file:
+Developers contribute by creating an `app.collection` file, a straightforward JSON file which includes the "ContributorID" and "gitURL" fields.
 
 ```
 {
-   ContributorID: <>,
-   gitURL: <>,
+   "ContributorID": "<contributor_id>",
+   "gitURL": "<git_url>"
 }
+
 ```
+
 This file, when altered, creates a distinct app. The hash, signed with the ContributorID, becomes the AppID.
 
-Upon receiving the JSON file, the App Collection clones the repository and builds the Docker image. It then checks for any newer commits on the master branch, notifying the user if an update is available. A single click launches the reinstallation (the update).
+Upon receiving the JSON file, the App Collection clones the repository and builds the OCI-compliant container image. It then checks for any newer commits on the master branch, notifying the user if an update is available. A single click launches the reinstallation (the update).
 
 ### App Collection Repository Format
 
 To successfully build an app, all App Collection git repositories must adhere to the following format:
 
 - A directory named `.breathOS/`, containing an `app.collection` file.
-- A subdirectory named `app-image/`, housing Dockerfiles. If there's only one Dockerfile, it must be named `app.file`.
-- Optionally, an `app.manager` file (a docker-compose file) located in the breathOS root folder.
+- A subdirectory named `app-image/`, housing Containerfiles (the OCI-compliant equivalent of Dockerfiles). If there's only one Containerfile, it must be named `app.file`.
+- An `app.manager` file (a podman-compose file) is required, located in the breathOS root folder. This file is used to manage and set up the application's container, including the mapping of ports if needed.
