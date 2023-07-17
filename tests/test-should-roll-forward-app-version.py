@@ -4,8 +4,8 @@ from your_module import AppManager  # Replace with your actual module path
 
 class TestAppManager:
     @pytest.fixture
-    def app_manager(self):
-        return AppManager()
+    def app_collection(self):
+        return AppCollection()
 
     def test_should_roll_back_app_version(self, app_manager):
         # assuming the AppID and the date and time of the commit to roll back to
@@ -20,7 +20,7 @@ class TestAppManager:
         current_app_version = app_manager.get_app_version(app_id)
 
         # The current_app_version should now match the commit corresponding to rollback_date_time
-        # For the purpose of this test, assume that there's a method called 'get_commit_by_date' 
+        # For the purpose of this test, assume that there's a method called 'get_commit_by_date'
         # in your 'AppManager' class that takes an app_id and a datetime object and returns the commit
         # corresponding to that date and time.
         expected_app_version = app_manager.get_commit_by_date(app_id, rollback_date_time)

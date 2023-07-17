@@ -4,9 +4,9 @@ from your_module import App  # Replace with your actual module path
 
 class TestApp:
     @pytest.fixture
-    def app(self):
+    def app_collection(self):
         # Setup code here, if needed
-        return App()
+        return AppCollection()
 
     def test_should_rehash_appID_on_changes(self, app):
         initial_app_collection = json.dumps({

@@ -3,9 +3,9 @@ from your_module import App  # Replace with your actual module path
 
 class TestApp:
     @pytest.fixture
-    def app(self):
+    def app_collection(self):
         # Setup code here, if needed
-        return App()
+        return AppCollection()
 
     def test_should_generate_correct_appID_hash(self, app):
         contributor_id = "<contributor_id>"
