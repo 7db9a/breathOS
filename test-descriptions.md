@@ -19,3 +19,9 @@
 10. `test_should_roll_back_app_version`: This test checks if the application can correctly roll back an app to a previous version by passing a date and time as arguments. The rolled back version should match the state of the app at the specified date and time according to the commit history.
 
 11. `test_should_roll_forward_app_version`: Similar to the roll back test, this test verifies if the application can roll forward an app to a newer version by passing a date and time as arguments. The updated version should match the state of the app at the specified date and time according to the commit history.
+
+12. `test_should_verify`: This test should check the retrieval of the list of apps in the collection.
+
+13. `test_should_get_app_manager_content`: This test ensure that app.manager content is returned.
+
+14. `test_should_get_app_port`: This test check that the port assigned to an app can be returned.
